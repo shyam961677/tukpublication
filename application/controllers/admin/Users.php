@@ -12,10 +12,7 @@ class Users extends CI_Controller {
 
 	public function index()
 	{
-		if (!check_permission('Users', ucfirst('list'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}
+	
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/include/sidebar');
 		$data['results'] = $this->home_model->get_all_data('tbl_register');		
@@ -26,10 +23,6 @@ class Users extends CI_Controller {
 	public function create()
 	{
 		
-        if (!check_permission('Users', ucfirst('add'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/include/sidebar');
 		$data['country'] = $this->home_model->get_all_data('countries');

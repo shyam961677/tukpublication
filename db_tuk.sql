@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 18, 2025 at 01:40 PM
--- Server version: 10.4.27-MariaDB
+-- Host: 127.0.0.1:3306
+-- Generation Time: Feb 18, 2025 at 06:52 PM
+-- Server version: 9.1.0
 -- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -24,51 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `actions`
---
-
-CREATE TABLE `actions` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `status` enum('0','1') NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `actions`
---
-
-INSERT INTO `actions` (`id`, `name`, `status`) VALUES
-(1, 'Add', '1'),
-(2, 'Edit', '1'),
-(3, 'Delete', '1'),
-(4, 'View', '1'),
-(7, 'List', '1');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `admins`
 --
 
-CREATE TABLE `admins` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
-  `password` varchar(100) DEFAULT NULL,
-  `user_type` varchar(50) DEFAULT NULL,
-  `status` enum('1','0') NOT NULL DEFAULT '1' COMMENT '1-Active, 0-Inactive',
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE IF NOT EXISTS `admins` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `phone` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `password` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_type` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `status` enum('1','0') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1' COMMENT '1-Active, 0-Inactive',
   `LastLoggedIn` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admins`
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `password`, `user_type`, `status`, `LastLoggedIn`, `created_at`, `updated_at`) VALUES
-(1, 'Shyam Yadav', 'shyammilan002@gmail.com', '9953133123', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '2025-02-17 23:36:46', '2025-02-12 12:30:28', '2025-02-18 04:06:46'),
+(1, 'Shyam Yadav', 'shyammilan002@gmail.com', '9953133123', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '2025-02-18 11:47:58', '2025-02-12 12:30:28', '2025-02-18 17:17:58'),
 (3, 'Test', 'test@gmail.com', '9953133123', 'e10adc3949ba59abbe56e057f20f883e', '6', '1', '2025-02-18 07:44:21', '2025-02-14 04:55:54', '2025-02-18 12:14:21');
 
 -- --------------------------------------------------------
@@ -77,13 +56,15 @@ INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `password`, `user_type`, `
 -- Table structure for table `articles`
 --
 
-CREATE TABLE `articles` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `articles`;
+CREATE TABLE IF NOT EXISTS `articles` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text COLLATE utf8mb4_general_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `articles`
@@ -98,11 +79,13 @@ INSERT INTO `articles` (`id`, `title`, `content`, `created_at`, `updated_at`) VA
 -- Table structure for table `categories`
 --
 
-CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
@@ -117,11 +100,13 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 -- Table structure for table `cities`
 --
 
-CREATE TABLE `cities` (
-  `id` int(11) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `state_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `cities`;
+CREATE TABLE IF NOT EXISTS `cities` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `state_id` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=48357 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cities`
@@ -48099,12 +48084,14 @@ INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 -- Table structure for table `countries`
 --
 
-CREATE TABLE `countries` (
-  `id` int(11) NOT NULL,
-  `sortname` varchar(3) NOT NULL,
-  `name` varchar(150) NOT NULL,
-  `phonecode` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `countries`;
+CREATE TABLE IF NOT EXISTS `countries` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sortname` varchar(3) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `phonecode` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `countries`
@@ -48364,54 +48351,25 @@ INSERT INTO `countries` (`id`, `sortname`, `name`, `phonecode`) VALUES
 -- Table structure for table `menus`
 --
 
-CREATE TABLE `menus` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `position` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `modules`
---
-
-CREATE TABLE `modules` (
-  `id` int(11) NOT NULL,
-  `module_name` varchar(100) DEFAULT NULL,
-  `action` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `menus`;
+CREATE TABLE IF NOT EXISTS `menus` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `parent_id` int DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `position` int DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `modules`
+-- Dumping data for table `menus`
 --
 
-INSERT INTO `modules` (`id`, `module_name`, `action`) VALUES
-(1, 'Admin', 'List'),
-(2, 'Admin', 'View'),
-(3, 'Admin', 'Delete'),
-(4, 'Admin', 'Edit'),
-(5, 'Admin', 'Add'),
-(6, 'Users', 'List'),
-(7, 'Users', 'View'),
-(8, 'Users', 'Delete'),
-(9, 'Users', 'Edit'),
-(10, 'Users', 'Add'),
-(11, 'Role', 'List'),
-(12, 'Role', 'Delete'),
-(13, 'Role', 'Edit'),
-(14, 'Role', 'Add'),
-(15, 'Articles', 'List'),
-(16, 'Articles', 'Delete'),
-(17, 'Articles', 'Edit'),
-(18, 'Articles', 'Add'),
-(19, 'Category', 'List'),
-(20, 'Category', 'Delete'),
-(21, 'Category', 'Edit'),
-(22, 'Category', 'Add');
+INSERT INTO `menus` (`id`, `title`, `url`, `parent_id`, `icon`, `position`, `created_at`, `updated_at`) VALUES
+(1, 'User', 'user-list', 0, 'bi bi-people', 2, '2025-02-18 18:47:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -48419,13 +48377,16 @@ INSERT INTO `modules` (`id`, `module_name`, `action`) VALUES
 -- Table structure for table `roles`
 --
 
-CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `role` varchar(100) NOT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `status` enum('0','1') NOT NULL DEFAULT '1' COMMENT '1-Active, 0-Inactive',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_by` int DEFAULT NULL,
+  `status` enum('0','1') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1' COMMENT '1-Active, 0-Inactive',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `role` (`role`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `roles`
@@ -48444,25 +48405,18 @@ INSERT INTO `roles` (`id`, `role`, `created_by`, `status`, `created_at`) VALUES
 -- Table structure for table `role_permissions`
 --
 
-CREATE TABLE `role_permissions` (
-  `id` int(11) NOT NULL,
-  `role_id` int(11) DEFAULT NULL,
-  `permissions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`permissions`)),
-  `created_by` int(11) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL,
-  `status` enum('1','0') NOT NULL DEFAULT '1' COMMENT '1-Active,0-Inactive',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `role_permissions`
---
-
-INSERT INTO `role_permissions` (`id`, `role_id`, `permissions`, `created_by`, `updated_by`, `status`, `created_at`, `updated_at`) VALUES
-(1, 3, '{\"Users\":[\"List\",\"View\"],\"Articles\":[\"Add\",\"Delete\",\"Edit\",\"View\"],\"Role\":[\"List\"]}', 1, 1, '1', '2025-02-14 04:58:17', '2025-02-18 03:13:11'),
-(2, 5, '{\"Articles\":[\"List\"],\"Users\":[\"List\",\"View\"]}', 1, 1, '1', '2025-02-14 06:49:22', '2025-02-17 00:02:55'),
-(3, 6, '{\"Articles\":[\"Add\",\"Edit\",\"List\"],\"Role\":[\"List\"],\"Users\":[\"Add\",\"List\",\"View\"]}', 1, 1, '1', '2025-02-18 00:11:13', '2025-02-18 03:28:12');
+DROP TABLE IF EXISTS `role_permissions`;
+CREATE TABLE IF NOT EXISTS `role_permissions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `role_id` int DEFAULT NULL,
+  `permissions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  `status` enum('1','0') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1' COMMENT '1-Active,0-Inactive',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ;
 
 -- --------------------------------------------------------
 
@@ -48470,11 +48424,13 @@ INSERT INTO `role_permissions` (`id`, `role_id`, `permissions`, `created_by`, `u
 -- Table structure for table `states`
 --
 
-CREATE TABLE `states` (
-  `id` int(11) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `country_id` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `states`;
+CREATE TABLE IF NOT EXISTS `states` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) COLLATE utf8mb4_general_ci NOT NULL,
+  `country_id` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `states`
@@ -52580,186 +52536,35 @@ INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
 -- Table structure for table `tbl_register`
 --
 
-CREATE TABLE `tbl_register` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `ageGroup` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `state` varchar(255) NOT NULL,
-  `country` varchar(255) NOT NULL,
-  `mob` varchar(255) NOT NULL,
-  `sclname` varchar(255) NOT NULL,
-  `branch` varchar(255) NOT NULL,
-  `status` enum('1','0') NOT NULL DEFAULT '0' COMMENT '1-active, 0-inactive',
-  `remarks` varchar(255) NOT NULL,
-  `userpass` varchar(255) NOT NULL,
-  `userid` varchar(255) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  `section` varchar(255) NOT NULL,
-  `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `update_date` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-  `active_login` int(11) NOT NULL DEFAULT 0,
+DROP TABLE IF EXISTS `tbl_register`;
+CREATE TABLE IF NOT EXISTS `tbl_register` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `fullname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `ageGroup` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `state` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `country` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `mob` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `sclname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `branch` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('1','0') COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0' COMMENT '1-active, 0-inactive',
+  `remarks` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `userpass` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `userid` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `class_id` int NOT NULL,
+  `section` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `active_login` int NOT NULL DEFAULT '0',
   `LastLoggedIn` datetime NOT NULL,
-  `device_token` text NOT NULL,
-  `device_type` varchar(255) NOT NULL,
-  `activated_by` varchar(15) NOT NULL
+  `device_token` text COLLATE utf8mb4_general_ci NOT NULL,
+  `device_type` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `activated_by` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userid` (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `actions`
---
-ALTER TABLE `actions`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `admins`
---
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `articles`
---
-ALTER TABLE `articles`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `cities`
---
-ALTER TABLE `cities`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `countries`
---
-ALTER TABLE `countries`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `menus`
---
-ALTER TABLE `menus`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `modules`
---
-ALTER TABLE `modules`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `role` (`role`);
-
---
--- Indexes for table `role_permissions`
---
-ALTER TABLE `role_permissions`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `states`
---
-ALTER TABLE `states`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_register`
---
-ALTER TABLE `tbl_register`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `userid` (`userid`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `actions`
---
-ALTER TABLE `actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `articles`
---
-ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `cities`
---
-ALTER TABLE `cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48357;
-
---
--- AUTO_INCREMENT for table `countries`
---
-ALTER TABLE `countries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
-
---
--- AUTO_INCREMENT for table `menus`
---
-ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `modules`
---
-ALTER TABLE `modules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `role_permissions`
---
-ALTER TABLE `role_permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `states`
---
-ALTER TABLE `states`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4122;
-
---
--- AUTO_INCREMENT for table `tbl_register`
---
-ALTER TABLE `tbl_register`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

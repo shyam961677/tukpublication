@@ -50,51 +50,6 @@ if (!function_exists('get_role_by_id')) {
 }
 
 
-if (!function_exists('get_role_permissions_by_id')) {
-    function get_role_permissions_by_id($id) {
-    	$CI = &get_instance();
-        if (!empty($id)) {
-        	$CI->db->select('permission_id');
-        	$CI->db->where('role_id',$id);
-         	$result = $CI->db->get('role_permissions')->row();
-         	return $result; 	
-        }
-    }
-}
-
-
-
-if (!function_exists('check_permission')) {    
-    function check_permission($module_name, $action) {
-        $CI =& get_instance();
-
-        $CI->load->model('home_model');
-        $role_id = $CI->session->userdata('role_id');
-        if ($role_id==1) {
-            return true;  
-        }
-        $roles = $CI->home_model->get_roles_by_id($role_id);
-        $module = $CI->home_model->get_module_by_name($module_name);
-
-        if ($module && !empty($roles)) {
-
-            $permission = $CI->home_model->get_permission($role_id);
-            if ($permission) {
-                $permissions = json_decode($permission->permissions,true);
-                
-                if (isset($permissions[$module_name])) {
-                    if (in_array($action, $permissions[$module_name])) {
-                        return true;
-                    }
-                }
-
-            }
-        }
-
-        return false;   
-    }
-}
-
 if (!function_exists('get_country_id')) {
     function get_country_id($id) {
         $CI = &get_instance();

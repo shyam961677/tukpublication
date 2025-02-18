@@ -12,10 +12,7 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
-		if (!check_permission('Admin', ucfirst('list'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}
+	
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/include/sidebar');
 		$data['results'] = $this->home_model->get_all_data('admins');		
@@ -26,10 +23,7 @@ class Admin extends CI_Controller {
 	public function create()
 	{
 		
-        if (!check_permission('Admin', ucfirst('add'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}
+     
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/include/sidebar');
 		$data['user_types'] = $this->home_model->get_all_data('roles');
@@ -77,10 +71,7 @@ class Admin extends CI_Controller {
 
 	public function edit($id) 
 	{
-		if (!check_permission('Admin', ucfirst('edit'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		    redirect(base_url('admin-dashboard'));
-		}
+
 		if (empty($id)) {
 	        redirect(base_url('admin-list'));				
 		}
@@ -132,10 +123,7 @@ class Admin extends CI_Controller {
 	}
 
 	public function show($adminId) {
-		if (!check_permission('Admin', ucfirst('view'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}	
+	
 	    if (empty($adminId)) {
 	        redirect(base_url('admin-list'));
 	    }
@@ -153,10 +141,7 @@ class Admin extends CI_Controller {
 	}
 
     public function delete($id) {
-    	if (!check_permission('Admin', ucfirst('delete'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		    redirect(base_url('admin-dashboard'));
-		}
+    
 	    if ($this->home_model->delete_record($id,'admins')) {
 	        $this->session->set_flashdata('success', 'Record deleted successfully!');
 	    } else {

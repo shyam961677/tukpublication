@@ -3,12 +3,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">Action</h3>
+                <h3 class="mb-0">Module</h3>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                     <li class="breadcrumb-item"><a href="<?= base_url('admin-dashboard') ?>">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Action</li>
+                    <li class="breadcrumb-item active" aria-current="page">Module</li>
                 </ol>
             </div>
         </div>
@@ -23,30 +23,34 @@
                         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Status</th>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>URL</th>
+                                    <th>Parent ID</th>
+                                    <th>Icon</th>
+                                    <th>Position</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                    if (!empty($results)) {
-                                        foreach ($results as $key) { ?>
-                                <tr>
-                                    <td><?php echo $key->name; ?></td>
-                                    <td><?php echo ($key->status==1)?'<span class="badge badge-pill bg-success">Active</span>':'<span class="badge badge-pill bg-danger">Inactive</span>' ?></td>
-                                    <td>
-                                    
-                                        <a href="<?php echo base_url('edit-action/' . $key->id); ?>" class=" badge bg-warning" title="Edit"><i class="bi bi-pencil"></i></a>
-                                        <a href="<?php echo base_url('delete-action/' . $key->id); ?>" 
-                                           class=" badge bg-danger" 
-                                           onclick="return confirm('Are you sure you want to delete this record?');" title="Delete">
-                                           <i class="bi bi-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php } 
-                                    } ?>
+                               <?php if (!empty($results)): ?>
+                                <?php foreach ($results as $key): ?>
+                                    <tr>
+                                        <td><?php echo $key->id; ?></td>
+                                        <td><?php echo $key->title; ?></td>
+                                        <td><?php echo $key->url; ?></td>
+                                        <td><?php echo ($key->parent_id) ? $key->parent_id : 'Root'; ?></td>
+                                        <td><?php echo $key->icon; ?></td>
+                                        <td><?php echo $key->position; ?></td>
+                                        <td>
+                                            <a href="<?php echo base_url('edit-menu/' . $key->id); ?>" class=" badge bg-warning" title="Edit"><i class="bi bi-pencil"></i></a>
+
+                                            <a href="<?php echo base_url('delete-menu/' . $key->id); ?>" 
+                                            class=" badge bg-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this record?');"><i class="bi bi-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>                         
+                            <?php endif; ?>
                             </tbody>
                         </table>
                     </div>

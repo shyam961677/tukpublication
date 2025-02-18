@@ -50,9 +50,7 @@
           </a>                
         </li>
     
-        <?php if (check_permission('Admin', ucfirst('list'))) {
-          $adminArr  =['admin-list','create-admin','store-admin','edit-admin','delete-admin','show-admin'];
-        ?>
+        <?php $adminArr  =['admin-list','create-admin','store-admin','edit-admin','delete-admin','show-admin']; ?>
         <li class="nav-item <?php echo (!empty($this->uri->segment(1)) && in_array($this->uri->segment(1),$adminArr) ) ? 'menu-open' : ''; ?>">
           <a href="#" class="nav-link">
             <i class="nav-icon bi bi-person"></i>
@@ -68,19 +66,15 @@
                 <p>List</p>
               </a>
             </li>
-            <?php if (check_permission('admins', ucfirst('add'))) { ?>
             <li class="nav-item">
               <a href="<?php echo base_url('create-admin') ?>" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Create</p>
               </a>
             </li>
-            <?php } ?>
           </ul>
         </li>
-      <?php } if (check_permission('Users', ucfirst('list'))) {
-          $userArr  =['user-list','create-user','store-user','edit-user','delete-user','show-user','import-user'];
-        ?>
+      <?php $userArr  =['user-list','create-user','store-user','edit-user','delete-user','show-user','import-user'];?>
         <li class="nav-item <?php echo (!empty($this->uri->segment(1)) && in_array($this->uri->segment(1),$userArr) ) ? 'menu-open' : ''; ?>">
           <a href="#" class="nav-link">
             <i class="nav-icon bi bi-people"></i>
@@ -96,7 +90,6 @@
                 <p>List</p>
               </a>
             </li>
-            <?php if (check_permission('Users', ucfirst('add'))) { ?>
             <li class="nav-item">
               <a href="<?php echo base_url('create-user') ?>" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
@@ -110,12 +103,9 @@
                 <p>Import</p>
               </a>
             </li>
-            <?php } ?>
           </ul>
         </li>
-      <?php }  if (check_permission('Articles', ucfirst('list'))) {
-          $articlesArr  =['articles-list','articles-create','edit-articles'];
-        ?>
+      <?php $articlesArr  =['articles-list','articles-create','edit-articles'];?>
         <li class="nav-item <?php echo (!empty($this->uri->segment(1)) && in_array($this->uri->segment(1),$articlesArr) ) ? 'menu-open' : ''; ?>">
           <a href="#" class="nav-link">
             <i class="nav-icon bi bi-basket-fill"></i>
@@ -131,21 +121,16 @@
                 <p>List</p>
               </a>
             </li>
-            <?php if (check_permission('Articles', ucfirst('add'))) { ?>
             <li class="nav-item">
               <a href="<?php echo base_url('articles-create') ?>" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Create</p>
               </a>
             </li>
-            <?php } ?>
           </ul>
         </li>
-      <?php } ?>              
       <li class="nav-header">MASTERS</li>
-        <?php if (check_permission('Role', ucfirst('list'))) {  
-          $roleArr  =['user-role','create-role','store-role','edit-role','delete-role','update-role'];
-        ?>
+        <?php $roleArr  =['user-role','create-role','store-role','edit-role','delete-role','update-role']; ?>
         <li class="nav-item <?php echo (!empty($this->uri->segment(1)) && in_array($this->uri->segment(1),$roleArr) ) ? 'menu-open' : ''; ?>">
           <a href="#" class="nav-link">
             <i class="nav-icon bi bi-menu-button"></i>
@@ -161,69 +146,39 @@
                 <p>List</p>
               </a>
             </li>
-            <?php if (check_permission('Role', ucfirst('add'))) { ?>
             <li class="nav-item">
               <a href="<?php echo base_url('create-role') ?>" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Create</p>
               </a>
             </li>
-            <?php } ?>
           </ul>
         </li>
-      <?php }  $modulesArr  =['modules-list','create-modules','store-modules','edit-modules','delete-modules','update-modules'];
-        ?>
-        <li class="nav-item <?php echo (!empty($this->uri->segment(1)) && in_array($this->uri->segment(1),$modulesArr) ) ? 'menu-open' : ''; ?>">
+      <?php $menuArr=['menu-list','create-menu','store-menu','edit-menu','delete-menu','update-menu'];?>
+        <li class="nav-item <?php echo (!empty($this->uri->segment(1)) && in_array($this->uri->segment(1),$menuArr) ) ? 'menu-open' : ''; ?>">
           <a href="#" class="nav-link">
             <i class="nav-icon bi bi-menu-button"></i>
             <p>
-              Modules
+              Menu
               <i class="nav-arrow bi bi-chevron-right"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="<?php echo base_url('modules-list') ?>" class="nav-link">
+              <a href="<?php echo base_url('menu-list') ?>" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>List</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?php echo base_url('create-modules') ?>" class="nav-link">
+              <a href="<?php echo base_url('create-menu') ?>" class="nav-link">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Create</p>
               </a>
             </li>
           </ul>
         </li>
-        <?php 
-          $permissionArr  =['action-list','create-action','store-action','edit-action','delete-action','update-action'];
-        ?>
-        <li class="nav-item <?php echo (!empty($this->uri->segment(1)) && in_array($this->uri->segment(1),$permissionArr) ) ? 'menu-open' : ''; ?>">
-          <a href="#" class="nav-link ">
-            <i class="nav-icon bi bi-menu-button"></i>
-            <p>
-              Actions
-              <i class="nav-arrow bi bi-chevron-right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?php echo base_url('action-list') ?>" class="nav-link ">
-                <i class="nav-icon bi bi-circle"></i>
-                <p>List</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?php echo base_url('create-action') ?>" class="nav-link ">
-                <i class="nav-icon bi bi-circle"></i>
-                <p>
-                  Create 
-                </p>
-              </a>                    
-            </li>                  
-          </ul>
-        </li>
+       
         <?php  $categoryArr  =['category-list','category-create']; ?>
         <li class="nav-item <?php echo (!empty($this->uri->segment(1)) && in_array($this->uri->segment(1),$categoryArr) ) ? 'menu-open' : ''; ?>">
           <a href="#" class="nav-link">

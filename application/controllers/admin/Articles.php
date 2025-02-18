@@ -12,10 +12,7 @@ class Articles extends CI_Controller {
 
 	public function index()
 	{
-		if (!check_permission('Articles', ucfirst('list'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}
+		
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/include/sidebar');
 		$data['results'] = $this->category_model->get_all_data('articles');
@@ -25,10 +22,7 @@ class Articles extends CI_Controller {
 
 	public function create()
 	{	
-		if (!check_permission('Articles', ucfirst('add'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}
+
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/include/sidebar');
 		$this->load->view('admin/articles/create');
@@ -65,10 +59,7 @@ class Articles extends CI_Controller {
 
 	public function editCategry($id) 
 	{
-		if (!check_permission('Articles', ucfirst('edit'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}
+
 		$this->load->view('admin/include/header');
 		$this->load->view('admin/include/sidebar');
 		$data['results'] = $this->category_model->get_data_by_id($id,'articles');		
@@ -110,11 +101,7 @@ class Articles extends CI_Controller {
 
 	public function deleteCategry($id) 
 	{
-		
-    	if (!check_permission('Articles', ucfirst('delete'))) {		
-		    $this->session->set_flashdata('error', 'You do not have permission to access this module.');
-		   redirect(base_url('admin-dashboard'));
-		}
+
 	    if ($this->category_model->delete_record($id,'articles')) {
 	        $this->session->set_flashdata('success', 'Record deleted successfully!');
 	    } else {

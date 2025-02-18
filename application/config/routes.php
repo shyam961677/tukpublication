@@ -83,24 +83,16 @@ $route['user-role'] = 'admin/role/index';
 $route['create-role'] = 'admin/role/create';
 $route['store-role'] = 'admin/role/store';
 $route['edit-role/(:num)'] = 'admin/role/edit/$1';   
+$route['update-role'] = 'admin/role/update';        
 $route['delete-role/(:num)'] = 'admin/role/delete/$1'; 
-$route['update-role'] = 'admin/role/update';   
-$route['assign-permissions/(:num)'] = 'admin/role/assign_permissions/$1';        
-$route['save-permissions'] = 'admin/role/save_permissions';        
 
-$route['modules-list'] = 'admin/modules/index';
-$route['create-modules'] = 'admin/modules/create';
-$route['store-modules'] = 'admin/modules/store';  
-$route['edit-modules/(:num)'] = 'admin/modules/edit/$1';   
-$route['delete-modules/(:num)'] = 'admin/modules/delete/$1'; 
-$route['update-modules'] = 'admin/modules/update'; 
-
-$route['action-list'] = 'admin/modules/actionList';
-$route['create-action'] = 'admin/modules/createAction';
-$route['store-action'] = 'admin/modules/storeAction';  
-$route['edit-action/(:num)'] = 'admin/modules/editAction/$1';   
-$route['delete-action/(:num)'] = 'admin/modules/deleteAction/$1'; 
-$route['update-action'] = 'admin/modules/updateAction';        
+$route['menu-list'] = 'admin/menu/index';
+$route['create-menu'] = 'admin/menu/create';
+$route['store-menu'] = 'admin/menu/store';  
+$route['edit-menu/(:num)'] = 'admin/menu/edit/$1';   
+$route['delete-menu/(:num)'] = 'admin/menu/delete/$1'; 
+$route['update-menu'] = 'admin/menu/update'; 
+  
 
 $route['category-list'] = 'admin/category/index';
 $route['category-create'] = 'admin/category/create';

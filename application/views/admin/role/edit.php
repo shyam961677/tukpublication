@@ -52,48 +52,7 @@
                       </div>
                     </div>
                   </div>
-                  <hr>
-                  <div class="col-md-12">
-                    <div>
-                      <h4>Grant Permission</h4>
-                    </div>
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Module Name</th>
-                          <th>Permissions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php 
-                          if (!empty($modules)) {
-                              foreach ($modules as $key) {
-                                  echo "<tr><td>
-                                      <input type='checkbox' class='module-checkbox' id='module-" . $key->module_name . "' onclick='toggleActions(\"" . $key->module_name . "\")' name='modules[]' value='" . $key->module_name . "' " . (isset($assigned_permissions[$key->module_name]) ? 'checked' : '') . "> " . ucfirst($key->module_name) . "
-                                  </td>";
-                                  
-                                  echo "<td>";
-                                  if (!empty($key->actions)) {
-                                      $actions = explode(',', $key->actions);
-                                      foreach ($actions as $action) {
-                                          $checked = (isset($assigned_permissions[$key->module_name]) && in_array($action, $assigned_permissions[$key->module_name])) ? 'checked' : '';
-                                          echo "<label>
-                                              <input type='checkbox' class='action-checkbox " . $key->module_name . "' name='permissions[" . $key->module_name . "][]' value='" . $action . "' $checked> " . ucfirst($action) . "
-                                          </label> &emsp;";
-                                      }
-                                  } else {
-                                      echo "No actions available for this module.";
-                                  }
-                                  echo "</td>"; 
-                                  echo "</tr>"; 
-                              }
-                          } else {
-                              echo "<tr><td colspan='2'>No modules available.</td></tr>";
-                          }
-                          ?>
-                      </tbody>
-                    </table>
-                  </div>
+                  
                 </div>
               </div>
               <div class="card-footer">
@@ -107,13 +66,4 @@
     </div>
   </div>
 </main>
-<script>
-  function toggleActions(moduleName) {
-      var moduleCheckbox = document.getElementById('module-' + moduleName);
-      var actionCheckboxes = document.getElementsByClassName(moduleName);
-  
-      for (var i = 0; i < actionCheckboxes.length; i++) {
-          actionCheckboxes[i].checked = moduleCheckbox.checked;
-      }
-  }
-</script>
+
